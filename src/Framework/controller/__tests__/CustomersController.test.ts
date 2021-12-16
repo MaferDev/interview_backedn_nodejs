@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { CustomersController } from '../CustomersController';
-import { CustomersService } from '../../service/CustomersService';
+import { CustomersService } from '../../../application/interfaces/services/CustomersService';
 
 describe('CustomersController', () => {
   describe('findByFilter', () => {

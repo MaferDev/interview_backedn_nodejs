@@ -1,6 +1,6 @@
 import { CustomersServiceImpl } from '../CustomersServiceImpl';
-import { Customer } from '../../domain/Customer';
-import { CustomersRepository } from '../../repository/CustomersRepository';
+import { Customer } from '../../../domain/enties/Customer';
+import { CustomersRepository } from '../../interfaces/repositories/CustomersRepository';
 
 describe('CustomersServiceImpl', () => {
   describe('findByFilter', () => {

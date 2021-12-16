@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CustomersRepositoryImpl } from '../CustomersRepositoryImpl';
-import { Customer } from '../../domain/Customer';
+import { Customer } from '../../../domain/enties/Customer';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

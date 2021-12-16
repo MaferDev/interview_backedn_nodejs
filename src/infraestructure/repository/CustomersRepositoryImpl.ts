@@ -1,6 +1,7 @@
+import { injectable } from 'tsyringe';
 import axios from 'axios';
-import { CustomersRepository } from './CustomersRepository';
-import { Customer } from '../domain/Customer';
+import { CustomersRepository } from '../../application/interfaces/repositories/CustomersRepository';
+import { Customer } from '../../domain/enties/Customer';
 
 type RandomUser = {
   id: {
@@ -14,6 +15,7 @@ type RandomUser = {
   phone: string;
 };
 
+@injectable()
 export class CustomersRepositoryImpl implements CustomersRepository {
   async findByFilter(customer: Customer): Promise<Customer[]> {
     const result = await axios.get('https://randomuser.me/api/?results=100');
