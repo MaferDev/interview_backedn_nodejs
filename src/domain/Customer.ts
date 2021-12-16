@@ -7,6 +7,8 @@ export class Customer {
 
   email: string;
 
+  phone: string;
+
   constructor(data?: Partial<Customer>) {
     if (data) {
       Object.assign(this, data);

@@ -92,7 +92,8 @@ describe('CustomersRepositoryImpl', () => {
         {
           id: '0390511T',
           name: 'brad',
-          lastName: 'gibson'
+          lastName: 'gibson',
+          phone: '011-962-7516',
         },
       ]);
     });

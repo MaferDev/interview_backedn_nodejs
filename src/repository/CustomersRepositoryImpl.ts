@@ -11,11 +11,11 @@ type RandomUser = {
 
     last: string;
   };
+  phone: string;
 };
 
 export class CustomersRepositoryImpl implements CustomersRepository {
   async findByFilter(customer: Customer): Promise<Customer[]> {
-    console.log('customer', customer);
     const result = await axios.get('https://randomuser.me/api/?results=100');
     if (!result.data.results) {
       return [];
@@ -30,7 +30,8 @@ export class CustomersRepositoryImpl implements CustomersRepository {
           new Customer({
             id: item.id.value,
             name: item.name.first,
-            lastName: item.name.last
+            lastName: item.name.last,
+            phone: item.phone,
           })
       );
   }
