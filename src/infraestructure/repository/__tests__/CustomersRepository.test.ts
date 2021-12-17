@@ -1,6 +1,9 @@
+import 'reflect-metadata'
+import { container } from 'tsyringe';
 import axios from 'axios';
 import { CustomersRepositoryImpl } from '../CustomersRepositoryImpl';
 import { Customer } from '../../../domain/enties/Customer';
+
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -9,7 +12,7 @@ describe('CustomersRepositoryImpl', () => {
   describe('findByFilter', () => {
     it('should return customers from random user', async () => {
       // Prepare
-      const repository = new CustomersRepositoryImpl();
+      const repository = container.createChildContainer().resolve(CustomersRepositoryImpl);
 
       mockedAxios.get.mockImplementationOnce(() =>
         Promise.resolve({
@@ -96,6 +99,9 @@ describe('CustomersRepositoryImpl', () => {
           phone: '011-962-7516',
         },
       ]);
+      
+      //Clear container
+      container.clearInstances()
     });
   });
 });

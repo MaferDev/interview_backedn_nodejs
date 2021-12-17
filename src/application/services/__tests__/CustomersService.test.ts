@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+import { container } from 'tsyringe';
 import { CustomersServiceImpl } from '../CustomersServiceImpl';
 import { Customer } from '../../../domain/enties/Customer';
 import { CustomersRepository } from '../../interfaces/repositories/CustomersRepository';
@@ -18,7 +20,8 @@ describe('CustomersServiceImpl', () => {
         ),
       } as unknown as CustomersRepository;
 
-      const service = new CustomersServiceImpl(repository);
+      container.register<CustomersRepository>("CustomersRepository", {useValue: repository});
+      const service = container.createChildContainer().resolve(CustomersServiceImpl);
 
       // Execute
       const response = await service.findByFilter(new Customer({ name: 'A' }));
@@ -35,6 +38,9 @@ describe('CustomersServiceImpl', () => {
       expect(repository.findByFilter).toBeCalledWith({
         name: 'A',
       });
+      
+      //Clear container
+      container.clearInstances()
     });
   });
 });

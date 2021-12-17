@@ -1,6 +1,9 @@
+import 'reflect-metadata'
+import { container } from 'tsyringe';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { CustomersController } from '../CustomersController';
 import { CustomersService } from '../../../application/interfaces/services/CustomersService';
+
 
 describe('CustomersController', () => {
   describe('findByFilter', () => {
@@ -19,7 +22,10 @@ describe('CustomersController', () => {
         ),
       } as unknown as CustomersService;
 
-      const controller = new CustomersController(service);
+      container.register('CustomersController', CustomersController);
+      container.register<CustomersService>("CustomersService", {useValue: service});
+
+      const controller = container.resolve(CustomersController);
 
       // Execute
       const response = await controller.findByFilter({
@@ -42,6 +48,9 @@ describe('CustomersController', () => {
       expect(service.findByFilter).toBeCalledWith({
         name: 'A',
       });
+
+      //Clear container
+      container.clearInstances()
     });
   });
 });
